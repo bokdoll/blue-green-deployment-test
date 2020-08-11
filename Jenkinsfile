@@ -15,8 +15,17 @@ pipeline {
       }
     }
 
+    stage('S3 Upload'){
+      steps{
+        sh 'zip -rq bundle.zip .' // zip 파일 생성
+        sh 'aws s3 cp ./bundle.zip s3://jenkins-deploy-application/application.zip --region ap-northeast-2' // s3로 bundle.zip 복사
+      }
+    }
+
     stage('Deploy') {
       steps {
+        sh 'aws elasticbeanstalk create-application-version --region ap-northeast-2 --application-name blue-green-test devion-label jenkins-deploy --source-bundle S3Bucket="jenkins-deploy-application",S3Key="application.zip"'
+        sh 'aws elasticbeanstalk update-environment --region ap-northeast-2 --environment-name blue-green-test-dev --version-label jenkins-deploy'
         sh 'echo "Deploy Success"'
       }
     }
