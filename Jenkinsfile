@@ -24,7 +24,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'aws elasticbeanstalk create-application-version --region ap-northeast-2 --application-name blue-green-test --version-label $RANDOM --source-bundle S3Bucket="jenkins-beanstalk-deployment", S3Key="application.zip"'
+        sh 'aws elasticbeanstalk create-application-version --region ap-northeast-2 --application-name blue-green-test --version-label $RANDOM --source-bundle S3Bucket="jenkins-beanstalk-deployment",S3Key="application.zip"'
         sh 'aws elasticbeanstalk update-environment --region ap-northeast-2 --environment-name blue-green-test-dev --version-label $RANDOM'
         sh 'echo "Deploy Success"'
       }
