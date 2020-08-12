@@ -24,10 +24,8 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        // sh 'RANDOM_STR=$(cat /dev/urandom | tr -dc "a-zA-Z0-9" | fold -w 8 | sed 1q)'
-        // sh 'echo ${RANDM_STR}'
-        sh 'aws elasticbeanstalk create-application-version --region ap-northeast-2 --application-name blue-green-test --version-label app-ver2 --source-bundle S3Bucket="jenkins-beanstalk-deployment",S3Key="application.zip"'
-        sh 'aws elasticbeanstalk update-environment --region ap-northeast-2 --environment-name blue-green-test-dev --version-label app-ver2'
+        sh 'aws elasticbeanstalk create-application-version --region ap-northeast-2 --application-name blue-green-test --version-label app-ver3 --source-bundle S3Bucket="jenkins-beanstalk-deployment",S3Key="application.zip"'
+        sh 'aws elasticbeanstalk update-environment --region ap-northeast-2 --environment-name blue-green-test-dev --version-label app-ver3'
         sh 'echo "Deploy Success"'
       }
     }
