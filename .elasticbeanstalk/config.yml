@@ -2,8 +2,6 @@ branch-defaults:
   dev:
     environment: blue-green-test-dev
     group_suffix: null
-  new:
-    environment: blue-green-test-dev-2
 global:
   application_name: blue-green-test
   branch: null
